@@ -26,20 +26,48 @@ TextProcessingTest >> testFindLongestWord [
 ]
 
 { #category : 'tests' }
-TextProcessingTest >> testFormattedPrint [
+TextProcessingTest >> testFormattedPrintNumberBaseWidthUpcase [
 
-	self
-		assert:
-		(TextProcessing formattedPrint: 'Number: ' number: 255 base: 10)
-		equals: 'Number: 255'.
-	self
-		assert:
-		(TextProcessing formattedPrint: 'Number: ' number: 255 base: 16)
-		equals: 'Number: FF'.
-	self
-		assert:
-		(TextProcessing formattedPrint: 'Number: ' number: 5 base: 2)
-		equals: 'Number: 101'
+	| result |
+	result := TextProcessing
+		          formattedPrint: 'Результат: '
+		          number: 123
+		          base: 10
+		          width: 0
+		          upcase: false.
+	self assert: result equals: 'Результат: 123'.
+
+	result := TextProcessing
+		          formattedPrint: 'Результат: '
+		          number: 5
+		          base: 2
+		          width: 8
+		          upcase: false.
+	self assert: result equals: 'Результат:      101'.
+
+	result := TextProcessing
+		          formattedPrint: 'Результат: '
+		          number: 255
+		          base: 16
+		          width: 4
+		          upcase: true.
+	self assert: result equals: 'Результат:   FF'.
+
+	result := TextProcessing
+		          formattedPrint: 'Результат: '
+		          number: -42
+		          base: 10
+		          width: 6
+		          upcase: false.
+	self assert: result equals: 'Результат:    -42'.
+
+	result := TextProcessing
+		          formattedPrint: 'Результат: '
+		          number: 0
+		          base: 10
+		          width: 4
+		          upcase: false.
+	self assert: result equals: 'Результат: 0000'
 ]
 
 { #category : 'tests' }
